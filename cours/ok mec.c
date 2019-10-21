@@ -147,7 +147,7 @@ int main()
 
 //Structures Condition et boucles
 
-int main (){
+/*int main (){
 
     int a=0,b=0,c=0,d=0;
 
@@ -240,7 +240,29 @@ int main (){
             continue;
         }
     }
-}
+}*/
+
+//Les entrées sorties conversationnelles
+
+
+int main()
+
+    //Affichage
+    printf("%d\n",TAILLE);
+    printf("%s\n",MOT);
+
+
+    //Saisie
+
+    int val
+    scanf ("%d",&val);
+    fflush(stdin); //vide le buffer de la saisie
+    char car;
+    scanf("%c,&car");
+    fflush(stdin);
+    char tabCar[TAILLE]; //de 0 a TAILLE-1
+    scanf ("%s",tabCar);
+
 
 
 
