@@ -1,139 +1,151 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define TAILLE_MAX 3
 
-void verif_ligne(int verif,char sym,int i, char morp[3][3]);
-void verif_diago (int verif,char sym, int i, char morp [3][3]);
-void verif_colone(int verif,char sym, int i, char morp [3][3]);
+
+int verif_ligne(int n_verif,char c_sym,int n_i, char c_morp[TAILLE_MAX][TAILLE_MAX]);
+int verif_diago (int n_verif,char c_sym, int n_i, char c_morp [TAILLE_MAX][TAILLE_MAX]);
+int verif_colone(int n_verif,char c_sym, int n_i, char c_morp [TAILLE_MAX][TAILLE_MAX]);
+
+
 int main()
 {
-   char morp[3][3]; // creation d'un tableau en deux dimention
-    int j,k,i,null,verif; // creation d'entier
-    char sym;
-
-    for (j=0;j<3;j++)  //initialisation tableau
+   char c_morp[TAILLE_MAX][TAILLE_MAX]; // creation d'un tableau en deux dimention
+    int n_j,n_k,n_i,n_null,n_verif; // creation d'entier
+    char c_sym;
+    n_null = 0;
+    for (n_j=0;n_j<TAILLE_MAX;n_j++)  //initialisation tableau
     {
-        for (k=0;k<3;k++)
+        for (n_k=0;n_k<TAILLE_MAX;n_k++)
         {
-            morp[j][k]='_';
+            c_morp[n_j][n_k]='_';
         }
 
     }
 
-    i=0;
-    sym = 'O';
-    while(i=0)
+    n_i=0;
+    c_sym = 'O';
+    while(n_i!=10)
     {
-       if (sym == 'O')  //changement de symbole
+       if (c_sym == 'O')  //changement de symbole
        {
-           sym = 'X';
+           c_sym = 'X';
        }else
        {
-            sym = 'O';
+            c_sym = 'O';
        }
        do
         {
             printf("Ecrivez vos coordoné x entre 1 et 3 \n") ;
-            scanf("%d",k);
-            k = k-1;
+            scanf("%d",&n_k);
+            n_k = n_k-1;
             printf ("Ecrivez vos coordoné y entre 1 et 3 \n") ;
-            scanf("%d",j);
-            j = j-1;
+            scanf("%d",&n_j);
+            n_j = n_j-1;
 
-        }while(morp[j][k] != '_'); //verification si la cellule est dispo
+        }while(c_morp[n_j][n_k] != '_'); //verification si la cellule est dispo
 
 
-        morp [j][k] = sym;
+        c_morp [n_j][n_k] = c_sym;
 
-        for (j=0;j>2;j++)
+        for (n_j=0;n_j<TAILLE_MAX;n_j++)
         {
-            for(k=0;k>2;k++)
+            for(n_k=0;n_k<TAILLE_MAX;n_k++)
             {
-             printf(morp[j][k]);
+             printf("%c",c_morp[n_j][n_k]);
             }
             printf("\n");
         }
 
-        null++;
+        n_null = n_null+1;
 
-        if(null =9)
+        if(n_null == 9)
         {
-            i=1;
+            n_i=10;
         }
 
-    verif_ligne(verif,sym,i,morp);  // appel des procedure pour la verification des victoire
-    if (verif < 3) // on verifie si un des joueur a gagner, si non on lance une autre verification
+    n_verif=verif_ligne(n_verif,c_sym,n_i,c_morp);  // appel des procedure pour la verification des victoire
+    if (n_verif < 3) // on verifie si un des joueur a gagner, si non on lance une autre verification
     {
-    verif_diago (verif,sym,i,morp);
+    n_verif=verif_diago (n_verif,c_sym,n_i,c_morp);
     }
-     if (verif < 3 )
+     if (n_verif < 3 )
      {
-    verif_colone(verif,sym,i,morp);
+    n_verif=verif_colone(n_verif,c_sym,n_i,c_morp);
+     }
+
+     if (n_verif == 3)
+     {
+        n_i=10;
      }
 
 
     }
 
- if (null = 9) {
+ if (n_null == 9) {
     printf("personne n'a gagner, match nul les nulos\n");
  }else{
- printf("le joueur %s,sym a gagné!!!!!");
+ printf("le joueur %c a gagné!!!!!",c_sym);
  }
 
 
 
 }
-void verif_ligne(int verif,char sym,int i, char morp[3][3]) // verification de victoire lignes
+int verif_ligne(int n_verif,char c_sym,int n_i, char c_morp[3][3]) // verification de victoire lignes
 {
-    int k ;
+    int n_k ;
 
 
-        verif =0;
-        for(k=0;k>2;k++)
+        n_verif =0;
+        for(n_k=0;n_k<TAILLE_MAX;n_k++)
         {
-            if (morp[0][k]  )
+            if (c_morp[0][n_k] == c_sym )
             {
-             verif++;
+             n_verif++;
             }
         }
+        return n_verif;
 
 }
 
-void verif_colone(int verif,char sym, int i, char morp [3] [3]) // verification de victoire colones
+int verif_colone(int n_verif,char c_sym, int n_i, char c_morp [3] [3]) // verification de victoire colones
 {
-    int j;
+    int n_j;
 
-        verif =0;
-        for (j=0;j>2;j++)
+        n_verif =0;
+        for (n_j=0;n_j<TAILLE_MAX;n_j++)
         {
-            if (morp [j] [0]==sym)
+            if (c_morp [n_j] [0]==c_sym)
             {
-             verif++;
+             n_verif++;
             }
         }
+        return n_verif;
 
 }
 
-void verif_diago (int verif,char sym, int i, char morp [3] [3]) // verification de victoire pour les diago
+int verif_diago (int n_verif,char c_sym, int n_i, char c_morp [3] [3]) // verification de victoire pour les diago
 {
-    int j;
-    int k;
-    k=2;
-    verif =0;
-    for (j=0;j>2;j++)
+    int n_j;
+    int n_k;
+    n_k=2;
+    n_verif =0;
+    for (n_j=0;n_j<TAILLE_MAX;n_j++)
     {
-        if (morp [j] [k] = sym)
+        if (c_morp [n_j] [n_k] == c_sym)
             {
-                verif++;
+                n_verif++;
             }
-       k=k-1;
+       n_k=n_k-1;
     }
-    j=2;
-     for (k=0;k>2;k++)
+    n_j=2;
+     for (n_k=0;n_k<TAILLE_MAX;n_k++)
     {
-        if (morp [j] [k] = sym)
+        if (c_morp [n_j] [n_k] == c_sym)
             {
-                verif++;
+                n_verif++;
             }
-       j=j-1;
+       n_j=n_j-1;
     }
+    return n_verif;
 }
